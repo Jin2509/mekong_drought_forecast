@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>hd.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="hướng-dẫn-xây-dựng-dataset-dự-báo-hạn-hán-đbscl">Hướng dẫn xây dựng dataset dự báo hạn hán ĐBSCL</h1>
+<p>Tài liệu này hướng dẫn từng bước: tải dữ liệu đủ 5 trạm → kiểm tra chất lượng → dựng dataset (SPEI, đặc trưng, nhãn) để dùng cho mô hình dự báo.</p>
+<hr>
+<h2 id="0-tổng-quan-quy-trình">0. Tổng quan quy trình</h2>
+<pre class="hljs"><code><div>config.yaml
+   │
+   ▼
+[1] fetch_api.py      → data/raw/*.csv, data/interim/&lt;ID&gt;_daily.csv
+   │
+   ▼
+[2] validate_raw.py   → reports/validation_report.csv   (phải hết ERROR)
+   │
+   ▼
+[3] build_dataset.py  → data/processed/dataset_monthly_full.csv
+                        data/processed/dataset_monthly_ml.csv  ← dùng để huấn luyện
+</div></code></pre>
+<table>
+<thead>
+<tr>
+<th>Bước</th>
+<th>Script</th>
+<th>Việc làm</th>
+<th>Đầu ra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>src/fetch_api.py</code></td>
+<td>Tải dữ liệu ngày và giờ từ Open-Meteo cho 5 trạm</td>
+<td><code>data/interim/&lt;ID&gt;_daily.csv</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>src/validate_raw.py</code></td>
+<td>Kiểm tra thiếu ngày, NaN, ngoài ngưỡng, giá trị đứng yên</td>
+<td><code>reports/validation_report.csv</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>src/build_dataset.py</code></td>
+<td>Gộp tháng, tính SPEI, tạo đặc trưng và nhãn</td>
+<td><code>data/processed/*.csv</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="1-chuẩn-bị">1. Chuẩn bị</h2>
+<h3 id="11-cấu-trúc-thư-mục">1.1. Cấu trúc thư mục</h3>
+<pre class="hljs"><code><div>mekong_drought_forecast/
+├── config.yaml
+├── src/
+│   ├── fetch_api.py
+│   ├── validate_raw.py
+│   └── build_dataset.py
+├── data/
+│   ├── raw/
+│   ├── interim/
+│   ├── external/
+│   └── processed/
+├── reports/
+└── logs/
+</div></code></pre>
+<p>Tạo các thư mục còn thiếu:</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">mkdir</span> -p data/raw data/interim data/external data/processed reports logs
+</div></code></pre>
+<blockquote>
+<p>Lưu ý: tên thư mục hiện tại của bạn là <code>mekong_drough t_forecast</code> (có khoảng trắng). Nên đổi thành <code>mekong_drought_forecast</code> để tránh lỗi đường dẫn. Sau khi đổi tên cần tạo lại môi trường ảo <code>.venv</code> (hoặc sửa lại đường dẫn <code>source</code>).</p>
+</blockquote>
+<h3 id="12-kích-hoạt-môi-trường-ảo-và-cài-thư-viện">1.2. Kích hoạt môi trường ảo và cài thư viện</h3>
+<pre class="hljs"><code><div><span class="hljs-built_in">cd</span> /đường/dẫn/tới/mekong_drought_forecast
+<span class="hljs-built_in">source</span> .venv/bin/activate
+pip install pandas numpy scipy pyyaml requests
+</div></code></pre>
+<p>Kiểm tra:</p>
+<pre class="hljs"><code><div>python -c <span class="hljs-string">&quot;import pandas, numpy, scipy, yaml; print(&#x27;OK&#x27;)&quot;</span>
+</div></code></pre>
+<h3 id="13-đặt-file-vào-đúng-chỗ">1.3. Đặt file vào đúng chỗ</h3>
+<ul>
+<li>Chép <code>config.yaml</code> mới đè lên file cũ (ở thư mục gốc dự án).</li>
+<li>Chép <code>validate_raw.py</code> và <code>build_dataset.py</code> vào thư mục <code>src/</code>.</li>
+</ul>
+<hr>
+<h2 id="2-cấu-hình-configyaml">2. Cấu hình <code>config.yaml</code></h2>
+<p>Các điểm quan trọng:</p>
+<table>
+<thead>
+<tr>
+<th>Tham số</th>
+<th>Giá trị</th>
+<th>Ý nghĩa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>period.calib_start</code></td>
+<td>1991</td>
+<td>Năm bắt đầu của chuỗi dữ liệu ngày</td>
+</tr>
+<tr>
+<td><code>period.calib_end</code></td>
+<td>2020</td>
+<td>Năm cuối của giai đoạn chuẩn để fit SPEI (30 năm, chuẩn WMO)</td>
+</tr>
+<tr>
+<td><code>period.ml_start</code></td>
+<td>2010</td>
+<td>Năm bắt đầu có độ ẩm đất (dùng cho ML)</td>
+</tr>
+<tr>
+<td><code>period.end</code></td>
+<td>2025</td>
+<td>Năm cuối của dữ liệu</td>
+</tr>
+<tr>
+<td><code>period.end_lag_days</code></td>
+<td>7</td>
+<td>Dữ liệu archive trễ khoảng 7 ngày so với hiện tại</td>
+</tr>
+<tr>
+<td><code>stations</code></td>
+<td>5 trạm</td>
+<td>Bến Tre, Cà Mau, Rạch Giá, Cao Lãnh, Long Xuyên</td>
+</tr>
+</tbody>
+</table>
+<p>Quy tắc YAML cần nhớ:</p>
+<ul>
+<li>Dòng con thụt lề đúng 2 dấu cách dưới dòng cha.</li>
+<li>Không viết chữ thừa sau giá trị. Bình luận phải bắt đầu bằng <code>#</code>, ví dụ <code>raw: data/raw  # nơi lưu dữ liệu thô</code>.</li>
+</ul>
+<p>Kiểm tra config trước khi chạy:</p>
+<pre class="hljs"><code><div>python -c <span class="hljs-string">&quot;import yaml; c=yaml.safe_load(open(&#x27;config.yaml&#x27;)); print(c[&#x27;period&#x27;]); print(c[&#x27;paths&#x27;]); print(len(c[&#x27;stations&#x27;]), &#x27;tram&#x27;)&quot;</span>
+</div></code></pre>
+<p>Kết quả đúng: <code>calib_start: 1991</code>, <code>end: 2025</code>, và <code>5 tram</code>.</p>
+<hr>
+<h2 id="3-bước-1-crawl-đủ-dữ-liệu">3. Bước 1: Crawl đủ dữ liệu</h2>
+<pre class="hljs"><code><div>python src/fetch_api.py 2&gt;&amp;1 | <span class="hljs-built_in">tee</span> logs/fetch_full.log
+</div></code></pre>
+<p>Lệnh <code>tee</code> vừa in ra màn hình vừa lưu log để bạn xem lại.</p>
+<p>Thời gian chạy thường vài phút đến vài chục phút vì có <code>sleep_seconds</code> giữa các lần gọi API.</p>
+<p>Kết quả mong đợi cho mỗi trạm:</p>
+<ul>
+<li><code>data/interim/&lt;ID&gt;_daily.csv</code> gồm khoảng 12.784 dòng dữ liệu + 1 dòng tiêu đề (1991-01-01 → 2025-12-31 là 35 năm, có 9 năm nhuận).</li>
+<li>Các file thô theo giờ của độ ẩm đất nằm trong <code>data/raw/</code>, giữ lại để tái lập kết quả.</li>
+</ul>
+<p>Kiểm tra nhanh:</p>
+<pre class="hljs"><code><div><span class="hljs-built_in">ls</span> data/interim
+<span class="hljs-built_in">wc</span> -l data/interim/*_daily.csv
+<span class="hljs-built_in">head</span> -3 data/interim/BT_daily.csv
+</div></code></pre>
+<p>Cột của file ngày:</p>
+<pre class="hljs"><code><div>date, precipitation_sum, temperature_2m_max, et0_fao_evapotranspiration, soil_moisture_0_to_7cm_mean
+</div></code></pre>
+<h3 id="xử-lý-sự-cố-khi-crawl">Xử lý sự cố khi crawl</h3>
+<table>
+<thead>
+<tr>
+<th>Hiện tượng</th>
+<th>Nguyên nhân</th>
+<th>Cách xử lý</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>400 Bad Request</code></td>
+<td>Sai ngày (ví dụ năm gõ nhầm 1023) hoặc sai tên biến</td>
+<td>Kiểm tra <code>period</code> và <code>daily_vars</code> trong config</td>
+</tr>
+<tr>
+<td><code>429 Too Many Requests</code></td>
+<td>Vượt giới hạn lượt gọi của API miễn phí</td>
+<td>Đợi khoảng 1 giờ, tăng <code>sleep_seconds</code> lên 3, chạy lại</td>
+</tr>
+<tr>
+<td>Lỗi mạng giữa chừng</td>
+<td>Mất kết nối</td>
+<td>Chạy lại. Nếu script không bỏ qua trạm đã tải, xóa file của trạm lỗi rồi chạy lại</td>
+</tr>
+<tr>
+<td>Lỗi YAML</td>
+<td>Sai thụt lề hoặc chữ thừa</td>
+<td>Chạy lệnh kiểm tra config ở mục 2</td>
+</tr>
+</tbody>
+</table>
+<p>Ghi chú: API miễn phí của Open-Meteo chỉ dành cho mục đích phi thương mại, phù hợp đồ án học thuật.</p>
+<hr>
+<h2 id="4-bước-2-kiểm-tra-tính-hợp-lệ-của-dữ-liệu">4. Bước 2: Kiểm tra tính hợp lệ của dữ liệu</h2>
+<pre class="hljs"><code><div>python src/validate_raw.py
+</div></code></pre>
+<h3 id="41-script-kiểm-tra-những-gì">4.1. Script kiểm tra những gì</h3>
+<table>
+<thead>
+<tr>
+<th>Kiểm tra</th>
+<th>Mức độ</th>
+<th>Ý nghĩa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Thiếu file hoặc thiếu cột</td>
+<td>ERROR</td>
+<td>Bước crawl chưa hoàn tất</td>
+</tr>
+<tr>
+<td>Ngày bị trùng</td>
+<td>ERROR</td>
+<td>Cần loại bỏ dòng trùng</td>
+</tr>
+<tr>
+<td>Thiếu ngày so với 1991-01-01 → 2025-12-31</td>
+<td>ERROR</td>
+<td>Chuỗi thời gian không liên tục, sẽ làm sai tổng trượt và SPEI</td>
+</tr>
+<tr>
+<td>NaN ở mưa, Tmax, ET0</td>
+<td>ERROR</td>
+<td>Không được thiếu</td>
+</tr>
+<tr>
+<td>NaN ở độ ẩm đất sau 2010</td>
+<td>ERROR</td>
+<td>Phải đủ từ 2010</td>
+</tr>
+<tr>
+<td>Giá trị ngoài ngưỡng</td>
+<td>ERROR</td>
+<td>Mưa 0–400 mm, Tmax 15–42 °C, ET0 0–10 mm/ngày, độ ẩm đất 0,02–0,60</td>
+</tr>
+<tr>
+<td>Số dòng giữa các trạm khác nhau</td>
+<td>ERROR</td>
+<td>Có trạm tải thiếu</td>
+</tr>
+<tr>
+<td>Mưa &gt; 150 mm/ngày</td>
+<td>WARN</td>
+<td>Có thể là mưa cực đoan thật, cần xem xét</td>
+</tr>
+<tr>
+<td>Chuỗi từ 5 ngày liền cùng một giá trị Tmax hoặc ET0</td>
+<td>WARN</td>
+<td>Có thể do lỗi dữ liệu</td>
+</tr>
+<tr>
+<td>Tổng mưa năm ngoài 500–4000 mm</td>
+<td>WARN</td>
+<td>Cần xem lại năm đó</td>
+</tr>
+<tr>
+<td>Độ ẩm đất chạm trần (≥ 20% số ngày)</td>
+<td>INFO</td>
+<td>Bão hòa của mô hình, không phải số đo thực</td>
+</tr>
+</tbody>
+</table>
+<p>Độ ẩm đất NaN trước 2010 là chủ định, không bị tính là lỗi.</p>
+<h3 id="42-đọc-kết-quả">4.2. Đọc kết quả</h3>
+<p>Ví dụ dòng in ra:</p>
+<pre class="hljs"><code><div>[ERROR] CM  missing_dates  thiếu 31 ngày, ví dụ ['2005-03-01', ...]
+[WARN ] KG  heavy_rain     3 ngày mưa &gt; 150 mm (kiểm tra có thật không)
+[INFO ] BT  rows           12784 dòng, 1991-01-01 → 2025-12-31
+</div></code></pre>
+<ul>
+<li><strong>ERROR</strong>: bắt buộc sửa rồi chạy lại. Cách thường dùng là tải lại trạm đó.</li>
+<li><strong>WARN</strong>: xem xét và ghi chú vào báo cáo, không nhất thiết phải sửa.</li>
+<li><strong>INFO</strong>: thông tin để mô tả dữ liệu.</li>
+</ul>
+<p>Script thoát với mã 1 nếu còn ERROR. Chỉ sang bước 3 khi hết ERROR.</p>
+<p>Báo cáo chi tiết nằm ở <code>reports/validation_report.csv</code>, có thể đưa vào phụ lục của đồ án.</p>
+<hr>
+<h2 id="5-bước-3-dựng-dataset">5. Bước 3: Dựng dataset</h2>
+<pre class="hljs"><code><div>python src/build_dataset.py
+</div></code></pre>
+<h3 id="51-các-bước-xử-lý-bên-trong">5.1. Các bước xử lý bên trong</h3>
+<p><strong>a) Gộp từ ngày sang tháng</strong></p>
+<table>
+<thead>
+<tr>
+<th>Cột</th>
+<th>Cách tính</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>precip_sum</code></td>
+<td>Tổng mưa tháng</td>
+</tr>
+<tr>
+<td><code>et0_sum</code></td>
+<td>Tổng ET0 tháng</td>
+</tr>
+<tr>
+<td><code>tmax_mean</code>, <code>tmax_max</code></td>
+<td>Trung bình và cực đại của Tmax</td>
+</tr>
+<tr>
+<td><code>rain_days</code></td>
+<td>Số ngày mưa ≥ 1 mm</td>
+</tr>
+<tr>
+<td><code>soil_mean</code></td>
+<td>Trung bình độ ẩm đất</td>
+</tr>
+</tbody>
+</table>
+<p>Tháng nào chưa đủ ngày (ví dụ tháng cuối) bị loại để tránh thiên lệch.</p>
+<p><strong>b) Cân bằng nước</strong></p>
+<pre class="hljs"><code><div>D = P − ET0     (mm/tháng)
+</div></code></pre>
+<p>D âm kéo dài nghĩa là thiếu nước, tức hạn.</p>
+<p><strong>c) SPEI-1, SPEI-3, SPEI-6</strong></p>
+<ol>
+<li>Tổng trượt D trên 1, 3, 6 tháng.</li>
+<li>Với mỗi tháng trong năm (1–12), fit phân phối log-logistic 3 tham số (phương pháp PWM của Vicente-Serrano) trên giai đoạn chuẩn 1991–2020.</li>
+<li>Chuyển xác suất tích lũy sang phân phối chuẩn chuẩn hóa. Kết quả có trung bình ≈ 0 và độ lệch chuẩn ≈ 1.</li>
+</ol>
+<p>Phân loại hạn tham khảo:</p>
+<table>
+<thead>
+<tr>
+<th>SPEI</th>
+<th>Mức</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>≤ −2,0</td>
+<td>Hạn cực đoan</td>
+</tr>
+<tr>
+<td>−2,0 đến −1,5</td>
+<td>Hạn nặng</td>
+</tr>
+<tr>
+<td>−1,5 đến −1,0</td>
+<td>Hạn vừa</td>
+</tr>
+<tr>
+<td>−1,0 đến 1,0</td>
+<td>Bình thường</td>
+</tr>
+<tr>
+<td>≥ 1,0</td>
+<td>Ẩm ướt</td>
+</tr>
+</tbody>
+</table>
+<p><strong>d) Đặc trưng</strong></p>
+<ul>
+<li>Mùa vụ: <code>month_sin</code>, <code>month_cos</code>.</li>
+<li>ENSO: <code>oni_lag2</code>, <code>oni_lag3</code>. ONI là trung bình trượt 3 tháng nên phải trễ từ 2 tháng để không rò rỉ dữ liệu. Script tự tải file ONI từ NOAA vào <code>data/external/oni.ascii.txt</code>.</li>
+<li>Độ trễ 1, 2, 3 tháng (<code>_lag1</code>, <code>_lag2</code>, <code>_lag3</code>) của: <code>precip_sum</code>, <code>et0_sum</code>, <code>D</code>, <code>tmax_mean</code>, <code>soil_mean</code>, <code>spei1</code>, <code>spei3</code>, <code>spei6</code>.</li>
+</ul>
+<p><strong>e) Nhãn dự báo</strong></p>
+<table>
+<thead>
+<tr>
+<th>Cột</th>
+<th>Ý nghĩa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>target_spei3_h1/h2/h3</code></td>
+<td>SPEI-3 của 1, 2, 3 tháng sau (bài toán hồi quy)</td>
+</tr>
+<tr>
+<td><code>target_drought_h1/h2/h3</code></td>
+<td>1 nếu SPEI-3 tháng đó ≤ −1, ngược lại 0 (bài toán phân loại)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>f) Chia tập theo thời gian</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tập</th>
+<th>Giai đoạn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>train</td>
+<td>≤ 2018</td>
+</tr>
+<tr>
+<td>val</td>
+<td>2019–2021</td>
+</tr>
+<tr>
+<td>test</td>
+<td>≥ 2022</td>
+</tr>
+</tbody>
+</table>
+<p>Không xáo trộn ngẫu nhiên vì dữ liệu chuỗi thời gian.</p>
+<h3 id="52-hai-file-đầu-ra">5.2. Hai file đầu ra</h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Nội dung</th>
+<th>Dùng khi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dataset_monthly_full.csv</code></td>
+<td>Từ 1991, độ ẩm đất NaN trước 2010</td>
+<td>Phân tích EDA, vẽ lịch sử SPEI 1991–2025</td>
+</tr>
+<tr>
+<td><code>dataset_monthly_ml.csv</code></td>
+<td>Từ 2010, đã bỏ dòng thiếu đặc trưng do lag</td>
+<td><strong>Huấn luyện mô hình</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="53-kiểm-tra-spei-có-đúng-không">5.3. Kiểm tra SPEI có đúng không</h3>
+<p>Cuối lần chạy, script in bảng sanity check trên giai đoạn chuẩn. SPEI đúng khi:</p>
+<ul>
+<li><code>mean</code> xấp xỉ 0.</li>
+<li><code>std</code> xấp xỉ 1.</li>
+<li><code>frac_dry</code> (tỷ lệ tháng có SPEI-3 ≤ −1) khoảng 0,16.</li>
+</ul>
+<p>Nếu lệch nhiều (ví dụ <code>frac_dry</code> quá thấp hoặc quá cao), kiểm tra lại dữ liệu tháng hoặc báo lỗi để xem lại bước fit.</p>
+<hr>
+<h2 id="6-danh-sách-kiểm-tra-cuối-checklist">6. Danh sách kiểm tra cuối (checklist)</h2>
+<ul>
+<li><input type="checkbox" id="checkbox0"><label for="checkbox0"><code>config.yaml</code> đã có <code>calib_start: 1991</code>, <code>end: 2025</code>, đủ 5 trạm.</label></li>
+<li><input type="checkbox" id="checkbox1"><label for="checkbox1">Có đủ 5 file <code>data/interim/*_daily.csv</code>, số dòng bằng nhau.</label></li>
+<li><input type="checkbox" id="checkbox2"><label for="checkbox2"><code>validate_raw.py</code> không còn ERROR.</label></li>
+<li><input type="checkbox" id="checkbox3"><label for="checkbox3">Có <code>data/external/oni.ascii.txt</code> (nếu không, cột ONI sẽ là NaN).</label></li>
+<li><input type="checkbox" id="checkbox4"><label for="checkbox4">Bảng sanity check SPEI: mean ≈ 0, std ≈ 1, tỷ lệ hạn ≈ 0,16.</label></li>
+<li><input type="checkbox" id="checkbox5"><label for="checkbox5">Có <code>data/processed/dataset_monthly_ml.csv</code>.</label></li>
+<li><input type="checkbox" id="checkbox6"><label for="checkbox6">Lưu lại <code>logs/fetch_full.log</code> và <code>reports/validation_report.csv</code> làm bằng chứng cho báo cáo.</label></li>
+</ul>
+<hr>
+<h2 id="7-lưu-ý-khi-viết-báo-cáo-đồ-án">7. Lưu ý khi viết báo cáo đồ án</h2>
+<ol>
+<li><strong>Nguồn dữ liệu</strong>: đây là dữ liệu tái phân tích theo ô lưới (ERA5 / ERA5-Land qua Open-Meteo), không phải số đo tại trạm. Nêu rõ điều này, kèm độ lệch tọa độ ô lưới so với trạm (ví dụ Bến Tre lệch khoảng 3 km).</li>
+<li><strong>Độ ẩm đất chạm trần 0,43</strong>: đây là ngưỡng bão hòa của mô hình, không phải giá trị đo thật. Các đợt mưa lớn không còn phân biệt được qua cột này.</li>
+<li><strong>Chống rò rỉ dữ liệu</strong>: đặc trưng tháng t chỉ dùng dữ liệu đến hết tháng t, nhãn là tương lai, ONI trễ từ 2 tháng, SPEI fit trên giai đoạn chuẩn cố định.</li>
+<li><strong>Khoảng đệm giữa các tập</strong>: vì nhãn nhìn trước tối đa 3 tháng, 3 tháng cuối của train có thể chồng nhẹ sang val. Hãy bỏ một khoảng đệm 3 tháng hoặc ghi chú rõ.</li>
+<li><strong>Lớp hạn ít hơn lớp không hạn</strong>: dùng <code>class_weight</code> hoặc thước đo F1 / PR-AUC thay vì chỉ dùng accuracy.</li>
+<li><strong>Baseline để so sánh</strong>: persistence (dự báo SPEI tương lai bằng SPEI hiện tại), sau đó mới đến Random Forest, XGBoost.</li>
+<li><strong>Khả năng tái lập</strong>: giữ nguyên <code>config.yaml</code>, các file thô trong <code>data/raw/</code> và phiên bản thư viện (<code>pip freeze &gt; requirements.txt</code>).</li>
+</ol>
+<hr>
+<h2 id="8-bước-tiếp-theo-gợi-ý">8. Bước tiếp theo gợi ý</h2>
+<ol>
+<li><strong>EDA</strong>: biểu đồ mưa, ET0, độ ẩm đất theo mùa; chuỗi SPEI-3 theo năm; so sánh vùng ven biển và nội địa.</li>
+<li><strong>Mô hình baseline</strong>: persistence, hồi quy tuyến tính, Random Forest cho <code>target_spei3_h1..h3</code>.</li>
+<li><strong>Đánh giá</strong>: RMSE, MAE, R² cho hồi quy; F1, PR-AUC cho phân loại hạn; báo cáo theo từng trạm và từng horizon.</li>
+</ol>
+
+</body>
+</html>
