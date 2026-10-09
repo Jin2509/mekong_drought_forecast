@@ -3,18 +3,21 @@ project:
   timezone: Asia/Bangkok
   contact: "mptan2509@gmail.com"
 
+# --- Giai đoạn dữ liệu ---
+# ĐANG DÙNG: chạy thử 1 năm 2023 (khớp data/raw/*_2023_2023.csv).
+# Khi crawl thật, đổi thành: calib_start: 1991, ml_start: 2010, end: 2025
 period:
-  calib_start: 2023
-  ml_start: 2023
-  end: 2023
-  end_lag_days: 7
+  calib_start: 1991   # năm đầu tải dữ liệu ngày (thật: 1991, để hiệu chuẩn SPEI)
+  ml_start: 2010      # năm đầu dùng cho ML và tải độ ẩm đất (thật: 2010)
+  end: 2025           # năm cuối (thật: 2025)
+  end_lag_days: 7     # ERA5 trễ vài ngày so với hiện tại
 
 stations:
   - {id: BT, name: Ben Tre,    lat: 10.24, lon: 106.38, zone: coastal}
-  # - {id: CM, name: Ca Mau,     lat: 9.18,  lon: 105.15, zone: coastal}
-  # - {id: KG, name: Rach Gia,   lat: 10.01, lon: 105.08, zone: coastal}
-  # - {id: DT, name: Cao Lanh,   lat: 10.46, lon: 105.63, zone: inland}
-  # - {id: AG, name: Long Xuyen, lat: 10.37, lon: 105.43, zone: inland}
+  - {id: CM, name: Ca Mau,     lat: 9.18,  lon: 105.15, zone: coastal}
+  - {id: KG, name: Rach Gia,   lat: 10.01, lon: 105.08, zone: coastal}
+  - {id: DT, name: Cao Lanh,   lat: 10.46, lon: 105.63, zone: inland}
+  - {id: AG, name: Long Xuyen, lat: 10.37, lon: 105.43, zone: inland}
 
 api:
   base_free: "https://archive-api.open-meteo.com/v1/archive"
@@ -30,5 +33,8 @@ api:
   sleep_seconds: 1.5
 
 paths:
-  raw: data/raw # nơi lưu dữ liệu trả về 
-  interim: data/interim
+  raw: data/raw             # dữ liệu API trả về, giữ nguyên
+  interim: data/interim     # <ID>_daily.csv đã gộp (ngày + độ ẩm đất trung bình ngày)
+  processed: data/processed
+  reports: reports
+  logs: logs

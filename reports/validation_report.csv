@@ -1,0 +1,8 @@
+﻿station,level,check,detail
+BT,WARN,stuck,temperature_2m_max: chuỗi 5 ngày liên tiếp cùng giá trị
+BT,INFO,rows,"12784 dòng, 1991-01-01 → 2025-12-31"
+CM,INFO,rows,"12784 dòng, 1991-01-01 → 2025-12-31"
+KG,WARN,heavy_rain,1 ngày mưa > 150 mm (kiểm tra có thật không)
+KG,INFO,rows,"12784 dòng, 1991-01-01 → 2025-12-31"
+DT,INFO,rows,"12784 dòng, 1991-01-01 → 2025-12-31"
+AG,INFO,rows,"12784 dòng, 1991-01-01 → 2025-12-31"
